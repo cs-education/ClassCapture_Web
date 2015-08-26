@@ -1,0 +1,29 @@
+<div ng-controller="VideoChooserCtrl">
+	<div class="row">
+		<div class="col-md-6">
+			<div>
+				<h4>Video Date</h4>
+			    <p class="input-group">
+			      <input type="date" ng-model="chosenDate">
+			    </p>
+			</div>
+			<div>
+				<h4>Start Time</h4>
+				<timepicker ng-model="startTime" hour-step="1" minute-step="15"></timepicker>
+			</div>
+			<div>
+				<h4>End Time</h4>
+				<timepicker ng-model="endTime" hour-step="1" minute-step="15"></timepicker>
+			</div>
+			<br>
+			<div>
+				<button type="button" class="btn btn-success" ng-click="">Search</button>
+			</div>
+		</div>
+		<div class="col-md-6">
+			<class-view
+				media-player="mediaPlayer">
+			</class-view>
+		</div>
+	</div>
+</div>
