@@ -8,9 +8,9 @@ angular.module('classCaptureApp', [
   'ui.bootstrap',
   'classViewApp'
 ])
-  .config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
+  .config(function ($urlRouterProvider, $locationProvider) {
     $urlRouterProvider
-      .otherwise('/');
+      .otherwise('/front');
 
     $locationProvider.html5Mode(true);
   });
