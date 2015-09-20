@@ -6,11 +6,12 @@ angular.module('classCaptureApp', [
   'ngSanitize',
   'ui.router',
   'ui.bootstrap',
+  'base64',
   'classViewApp'
 ])
   .config(function ($urlRouterProvider, $locationProvider) {
     $urlRouterProvider
-      .otherwise('/front');
+      .otherwise('/notFound');
 
     $locationProvider.html5Mode(true);
   });

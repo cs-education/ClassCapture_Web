@@ -1,8 +1,25 @@
 angular.module("classCaptureApp")
-	.controller("VideoChooserCtrl", ($scope, $stateParams, $location, MediaPlayer) => {
+	.controller("VideoChooserCtrl", ($scope, $stateParams, $location, $state, _, encoder, MediaPlayer) => {
 		// angular bootstrap docs: https://angular-ui.github.io/bootstrap/
+		// Check that a valid course hash has been given, it will specify the course to look up for
+		if (_.has($stateParams, 'courseHash')) {
+			$scope.courseID = encoder.decode($stateParams.courseHash); // will decode into an ID
+			if (!_.isNumber($scope.courseID)) {
+				$state.go('front.notFound');
+			} else {
+				// Set $scope.title according to the course title. e.g. "CS 225"
+				// Must first fetch course object from courseID
+				// course
+				// 	.get({'id': $scope.courseID}).$promise
+				// 	.then(courseObj => {
+				// 		// Set page title according to received course info
+				// 		$scope.title = `${courseObj.department} ${courseObj.number}`
+				// 	});
+			}
+		} else {
+			$state.go('front.notFound');
+		}
 		// Can specify start and end times with query parameters
-
 		if ($stateParams.start) {
 			var startMillis = Number($stateParams.start);
 

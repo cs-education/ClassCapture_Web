@@ -10,8 +10,20 @@ angular.module('classCaptureApp')
       })
 
       .state('front.videoChooser', {
-      	url: '/videoChooser?start&end',
+      	url: '/videoChooser/:courseHash?start&end',
       	templateUrl: 'app/front/videoChooser/videoChooser.html',
       	controller: 'VideoChooserCtrl'
+      })
+
+      .state('front.notFound', {
+        url: '^/notFound', // no need to prefix his with /front/notFound
+        templateUrl: 'app/front/notFound/notFound.html',
+        controller: 'NotFoundCtrl'
+      })
+
+      .state('front.createCourse', {
+        url: '/createCourse',
+        templateUrl: 'app/front/createCourse/createCourse.html',
+        controller: 'CreateCourseCtrl'
       });
   });

@@ -2,8 +2,8 @@
 
 <header class="hero-unit" id="banner">
   <div class="container">
-    <h1>Welcome to ClassCapture</h1>
-    <p class="lead">A platform for the crowdsourced effort to capture quality course content</p>
+    <h1>{{title || "Welcome to ClassCapture"}}</h1>
+    <p class="lead" ng-if"!title">A platform for the crowdsourced effort to capture quality course content</p>
   </div>
 </header>
 
