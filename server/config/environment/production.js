@@ -11,7 +11,7 @@ module.exports = {
   // Server port
   port:     process.env.OPENSHIFT_NODEJS_PORT ||
             process.env.PORT ||
-            8080,
+            3000,
 
   // MongoDB connection options
   mongo: {
@@ -19,5 +19,11 @@ module.exports = {
             process.env.MONGOHQ_URL ||
             process.env.OPENSHIFT_MONGODB_DB_URL+process.env.OPENSHIFT_APP_NAME ||
             'mongodb://localhost/classcapture'
+  },
+
+  apiServer: {
+    ip: '127.0.0.1', // currently only have 1 VM...so web server & api server on same machine
+    port: 8080, // look at API server prod config
+    context: '/api' // redirect calls to '/api/*' to API Server
   }
 };
