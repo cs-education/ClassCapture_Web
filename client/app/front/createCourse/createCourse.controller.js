@@ -23,6 +23,7 @@ angular.module('classCaptureApp')
     	});
     };
 
+    // Creates a course object and new section objects linked to the course object
     $scope.createCourse = () => {
     	Course
     		.save({
@@ -59,7 +60,7 @@ angular.module('classCaptureApp')
     			// Show the error message
     			$scope.alerts.push({
     				'type': 'danger',
-    				'message': String(error)
+    				'message': String(err)
     			});
     		});
     };
