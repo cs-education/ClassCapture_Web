@@ -3,7 +3,7 @@
 		{
 		    "name"      : "WebApp",
 		    "script"    : "/home/vmuser/npm-global/bin/grunt",
-		    "args"        : "['serve:dist']"
+		    "args"        : ["serve:dist", "--force"]
 	  	}
   	]
 }
