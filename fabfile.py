@@ -29,7 +29,8 @@ def start_server():
     Start the server on the VM
     Uses forever package to start it as a continuous daemon
     """
-    run("pm2 start app.json -i 0")
+    with cd("~/%s" % git_repo_name):
+        run("pm2 start app.json -i 0")
 
 def deploy(user, password, shell_before=False, shell_after=True):
     env.user = user
