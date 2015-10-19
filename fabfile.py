@@ -7,12 +7,6 @@ env.hosts = ["classcapture1.cs.illinois.edu"]
 git_base_url = "https://github.com/sourabhdesai/"
 git_repo_name = "ClassCapture_Web"
 
-def test():
-    """
-    runs tests locally
-    """
-    local("npm test")
-
 def checkout():
     """
     Checkout the code on the VM, install npm/bower dependencies
@@ -34,12 +28,11 @@ def start_server():
     Start the server on the VM
     Uses forever package to start it as a continuous daemon
     """
-    run("forever -c \"grunt serve:dist\" .")
+    run("pm2 start app.json -i 0")
 
 def deploy(user, password, shell_before=False, shell_after=True):
     env.user = user
     env.password = password
-    test()
     if shell_before:
         open_shell()
     checkout()

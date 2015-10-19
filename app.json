@@ -1,0 +1,9 @@
+{
+	"apps" : [
+		{
+		    "name"      : "WebApp",
+		    "script"    : "/usr/bin/grunt",
+		    "args"        : "['serve:dist']"
+	  	}
+  	]
+}
