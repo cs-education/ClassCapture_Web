@@ -2,7 +2,7 @@
 	"apps" : [
 		{
 		    "name"      : "WebApp",
-		    "script"    : "/usr/bin/grunt",
+		    "script"    : "~/npm-global/bin/grunt",
 		    "args"        : "['serve:dist']"
 	  	}
   	]

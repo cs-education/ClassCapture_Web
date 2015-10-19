@@ -17,11 +17,11 @@ def checkout():
         must_clone_repo = run("test -d %s" % git_repo_name).failed
     if must_clone_repo:
         run("git clone %s%s.git" % (git_base_url, git_repo_name))
-    cd(git_repo_name)
-    run("git checkout origin master")
-    # install bower/npm dependencies
-    run("bower install")
-    run("npm install")
+    with cd("~/%s" % git_repo_name):
+        run("git pull origin master")
+        # install bower/npm dependencies
+        run("bower install")
+        run("npm install")
 
 def start_server():
     """
