@@ -1,4 +1,5 @@
 from fabric.api import env, local, run, cd, sudo, open_shell, settings
+# For setting up SSH key on VM: https://help.github.com/articles/generating-ssh-keys/
 
 env.user = ""
 env.password = ""
