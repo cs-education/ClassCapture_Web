@@ -4,7 +4,7 @@
 		    "name"      : "WebApp",
 		    "script"    : "/home/vmuser/npm-global/bin/grunt",
 		    "args"        : ["serve:dist", "--force"],
-		    "instances": 0
+		    "instances": 2
 	  	}
   	]
 }
