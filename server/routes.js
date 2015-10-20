@@ -4,9 +4,9 @@
 
 'use strict';
 
-var errors = require('./components/errors');
-var path = require('path');
-var config = require('./config/environment')
+var errors          = require('./components/errors');
+var path            = require('path');
+var config          = require('./config/environment')
 var proxyMiddleware = require('http-proxy-middleware');
 
 module.exports = function(app) {
@@ -16,7 +16,7 @@ module.exports = function(app) {
   rewriteTable[`^${config.apiServer.context}`] = '';
   var apiProxy = proxyMiddleware(`${config.apiServer.context}/**`, {
     'target': `http://${config.apiServer.ip}:${config.apiServer.port}`,
-    'ws': true,
+    'changeOrigin': true,
     'pathRewrite': rewriteTable
   });
   
