@@ -12,9 +12,12 @@ var proxyMiddleware = require('http-proxy-middleware');
 module.exports = function(app) {
 
   // Proxy '/api/*' endpoint to API server
+  var rewriteTable = {};
+  rewriteTable[`${config.apiServer.context}`] = '/';
   var apiProxy = proxyMiddleware(`${config.apiServer.context}`, {
     'target': `http://${config.apiServer.ip}:${config.apiServer.port}`,
     'ws': true,
+    'pathRewrite': rewriteTable
   });
   
   app.use(apiProxy);
