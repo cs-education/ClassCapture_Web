@@ -30,7 +30,20 @@ def start_server():
     Uses forever package to start it as a continuous daemon
     """
     with cd("~/%s" % git_repo_name):
-        run("pm2 start app.json -i 0")
+        run("pm2 start app.json")
+
+def reload_server(user, password, shell_after=True):
+    """
+    Restarts server...If its in cluster mode, will be able to reload with 0 downtime
+    """
+    env.user = user
+    env.password = password
+
+    checkout()
+    with cd("~/%s" % git_repo_name):
+        run("pm2 reload app.json")
+    if shell_after:
+        open_shell()
 
 def deploy(user, password, shell_before=False, shell_after=True):
     env.user = user
