@@ -45,6 +45,21 @@ def reload_server(user, password, shell_after=True):
     if shell_after:
         open_shell()
 
+def update_frontend(user, password, shell_after=True):
+    """
+    Just rebuilds the application frontend files
+    Server will then be able to just pull from the new files and display the front end updates
+    If there are updates for the server itself that serves the frontend content, use `reload_server(...)`
+    """
+    env.user = user
+    env.password = password
+
+    checkout()
+    with cd("~/%s" % git_repo_name):
+        run("grunt build:dist --force")
+    if shell_after:
+        open_shell()
+
 def deploy(user, password, shell_before=False, shell_after=True):
     env.user = user
     env.password = password
