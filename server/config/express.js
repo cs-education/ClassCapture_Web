@@ -9,7 +9,6 @@ var favicon = require('serve-favicon');
 var morgan = require('morgan');
 var compression = require('compression');
 var bodyParser = require('body-parser');
-var connectRestreamer = require('connect-restreamer');
 var methodOverride = require('method-override');
 var cookieParser = require('cookie-parser');
 var errorHandler = require('errorhandler');
@@ -25,7 +24,6 @@ module.exports = function(app) {
   app.use(compression());
   app.use(bodyParser.urlencoded({ extended: false }));
   app.use(bodyParser.json());
-  app.use(connectRestreamer()); // to fix proxy hanging issues...more info: https://github.com/nodejitsu/node-http-proxy/issues/180
   app.use(methodOverride());
   app.use(cookieParser());
   

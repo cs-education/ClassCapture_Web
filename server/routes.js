@@ -10,19 +10,6 @@ var config          = require('./config/environment')
 var proxyMiddleware = require('http-proxy-middleware');
 
 module.exports = function(app) {
-
-  // Proxy '/api/*' endpoint to API server
-  var rewriteTable = {};
-  rewriteTable[`^${config.apiServer.context}`] = '';
-  var apiProxy = proxyMiddleware(`${config.apiServer.context}/**`, {
-    'target': `http://${config.apiServer.ip}:${config.apiServer.port}`,
-    'changeOrigin': true,
-    'pathRewrite': rewriteTable
-  });
-  
-  app.use(apiProxy);
-
-  
   // All undefined asset or api routes should return a 404
   app.route('/:url(api|auth|components|app|bower_components|assets)/*')
    .get(errors[404]);
