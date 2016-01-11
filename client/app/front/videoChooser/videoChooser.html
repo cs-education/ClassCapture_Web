@@ -1,36 +1,9 @@
 <div ng-controller="VideoChooserCtrl">
-	<div class="row">
-		<div class="col-sm-3">
-			<div>
-				<h4>Video Date</h4>
-			    <p class="input-group">
-			      <input type="date" ng-model="chosenDate">
-			    </p>
-			</div>
-		</div>
-		<div class="col-sm-3">
-			<div>
-				<h4>Start Time</h4>
-				<timepicker ng-model="startTime" mousewheel="false" hour-step="1" minute-step="15"></timepicker>
-			</div>
-		</div>
-		<div class="col-sm-3">
-			<div>
-				<h4>End Time</h4>
-				<timepicker ng-model="endTime" mousewheel="false" hour-step="1" minute-step="15"></timepicker>
-			</div>
-		</div>
-		<br>
-		<div class="col-sm-3">
-			<button type="button" ng-disabled="startTime >= endTime" class="{{startTime >= endTime ? 'btn btn-danger' : 'btn btn-success'}}" ng-click="onSearchClicked()">{{startTime >= endTime ? "Start time must be before end time" : "Search"}}
-			</button>
-		</div>
-	</div>
-	<div class="col-md-6">
-		<br>
-		<class-view
-			media-player="mediaPlayer"
-			course="courseID">
-		</class-view>
-	</div>
+	<h1 ng-if="recordingsState === 'loading'">Fetching Videos...</h1>
+	<h1 ng-if="recordingsState === 'empty'">No videos were found</h1>
+	<h1 ng-if="recordingsState === 'error'">Error in retrieving videos</h1>
+	<class-view
+		media-player="mediaPlayer"
+		section="sectionID">
+	</class-view>
 </div>

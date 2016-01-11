@@ -1,0 +1,24 @@
+#submitChangesButton {
+	margin-top: 400px;
+	margin-bottom: 0px;
+}
+
+.footer {
+	margin-top: 10px;
+}
+
+::-webkit-input-placeholder {
+   text-transform: initial;
+}
+
+:-moz-placeholder { 
+   text-transform: initial;
+}
+
+::-moz-placeholder {  
+   text-transform: initial;
+}
+
+:-ms-input-placeholder { 
+   text-transform: initial;
+}

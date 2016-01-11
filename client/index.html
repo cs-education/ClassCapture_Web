@@ -18,8 +18,10 @@
       <link rel="stylesheet" href="bower_components/bootstrap-horizon/bootstrap-horizon.css" />
       <link rel="stylesheet" href="bower_components/videogular-chromecast/dist/videogular-chromecast.css" />
       <link rel="stylesheet" href="bower_components/videogular-themes-default/videogular.css" />
+      <link rel="stylesheet" href="bower_components/malhar-angular-dashboard/dist/malhar-angular-dashboard.css" />
       <link rel="stylesheet" href="bower_components/class-view/dist/public/app/app.css" />
       <link rel="stylesheet" href="bower_components/class-view/dist/public/app/vendor.css" />
+      <link rel="stylesheet" href="bower_components/fullcalendar/dist/fullcalendar.css" />
       <!-- endbower -->
     <!-- endbuild -->
     <!-- build:css({.tmp,client}) app/app.css -->
@@ -27,6 +29,10 @@
       <!-- injector:css -->
       <link rel="stylesheet" href="app/app.css">
       <link rel="stylesheet" href="app/front/front.css">
+      <link rel="stylesheet" href="app/front/home/account/account.css">
+      <link rel="stylesheet" href="app/front/home/calendar/calendar.css">
+      <link rel="stylesheet" href="app/front/home/home.css">
+      <link rel="stylesheet" href="app/front/login/login.css">
       <link rel="stylesheet" href="components/modal/modal.css">
       <!-- endinjector -->
     <!-- endbuild -->
@@ -66,13 +72,19 @@
       <script src="bower_components/swiper/dist/js/swiper.js"></script>
       <script src="bower_components/angular-swiper/dist/angular-swiper.js"></script>
       <script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
-      <script src="bower_components/lodash/dist/lodash.compat.js"></script>
+      <script src="bower_components/lodash/lodash.js"></script>
       <script src="bower_components/videogular/videogular.js"></script>
       <script src="bower_components/videogular-chromecast/dist/videogular-chromecast.min.js"></script>
       <script src="bower_components/videogular-controls/vg-controls.js"></script>
       <script src="bower_components/videogular-overlay-play/vg-overlay-play.js"></script>
+      <script src="bower_components/jquery-ui/jquery-ui.js"></script>
+      <script src="bower_components/angular-ui-sortable/sortable.js"></script>
+      <script src="bower_components/malhar-angular-dashboard/dist/malhar-angular-dashboard.js"></script>
       <script src="bower_components/class-view/dist/public/app/app.js"></script>
       <script src="bower_components/class-view/dist/public/app/vendor.js"></script>
+      <script src="bower_components/moment/moment.js"></script>
+      <script src="bower_components/fullcalendar/dist/fullcalendar.js"></script>
+      <script src="bower_components/angular-ui-calendar/src/calendar.js"></script>
       <!-- endbower -->
     <!-- endbuild -->
 
@@ -81,12 +93,18 @@
         
         <script src="app/app.js"></script>
           <!-- injector:js -->
+          <script src="app/authService/authService.service.js"></script>
           <script src="app/encoder/encoder.service.js"></script>
           <script src="app/front/createCourse/createCourse.controller.js"></script>
           <script src="app/front/front.controller.js"></script>
           <script src="app/front/front.js"></script>
+          <script src="app/front/home/account/account.controller.js"></script>
+          <script src="app/front/home/calendar/calendar.controller.js"></script>
+          <script src="app/front/home/home.controller.js"></script>
+          <script src="app/front/login/login.controller.js"></script>
           <script src="app/front/notFound/notFound.controller.js"></script>
           <script src="app/front/videoChooser/videoChooser.controller.js"></script>
+          <script src="app/moment/moment.service.js"></script>
           <script src="components/modal/modal.service.js"></script>
           <script src="components/navbar/navbar.controller.js"></script>
           <!-- endinjector -->

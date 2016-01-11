@@ -1,16 +1,17 @@
 <div ng-include="'components/navbar/navbar.html'"></div>
 
-<header class="hero-unit" id="banner">
+<header class="hero-unit" id="banner" ng-if="$state.current.data.showHeader">
   <div class="container">
-    <h1>{{title || "Welcome to ClassCapture"}}</h1>
-    <p class="lead" ng-if"!title">A platform for the crowdsourced effort to capture quality course content</p>
+    <h1>{{title || "ClassCapture"}}</h1>
+    <p class="lead" ng-if"!title">Bring your Classroom Online</p>
   </div>
 </header>
 
-<div class="container">
+<div class="container" style="{{$state.current.data.needsFullWidth ? 'width: 100%;' : ''}}">
 	<div ui-view></div>
 </div>
 
+<div class="footer-seperator"></div>
 <footer class="footer">
   <div class="container">
       <p>ClassCapture | Sister Project: <a href="http://classtranscribe.com">ClassTranscribe</a></p>

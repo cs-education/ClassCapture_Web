@@ -1,0 +1,66 @@
+<div ng-controller="AccountCtrl">
+	<alert class="alert-success" ng-if="madeUpdate">Invalid Credentials</alert>
+	<alert ng-if="updateFailed">Update Failed</alert>
+	<alert ng-repeat="msg in alertMessages">{{msg}}</alert>
+	<tabset>
+		<tab heading="Login Info">
+			<div class="row">
+				<div class="col-md-6">
+					<form name="login.form" class="css-form" novalidate>
+						<input type="text" name="firstName" ng-model="login.info.firstName" placeholder="First Name" class="form-control" ng-required="true">
+						<input type="text" name="lastName" ng-model="login.info.lastName" placeholder="Last Name" class="form-control" ng-required="true">
+						<input type="password" name="password" ng-model="login.info.password" placeholder="Password (at least 5 characters)" class="form-control" ng-required="true">
+						<input type="password" name="confirmPassword" ng-model="login.info.confirmPassword" placeholder="Confirm Password" class="form-control" ng-required="true">
+					</form>
+				</div>
+			</div>
+		</tab>
+		<tab heading="Add Sections" active="true">
+			<div class="row">
+				<div class="col-md-6">
+					<form name="searchTerms.searchForm" class="css-form" ng-submit="search()" novalidate>
+						<input type="text" name="department" style="text-transform:uppercase" ng-model="searchTerms.department" placeholder="Department" class="form-control" ng-required="true">
+						<input type="number" name="number" ng-model="searchTerms.number" placeholder="Course Number" class="form-control" ng-required="true">
+						<button type="submit" class="btn btn-primary" id="submit" ng-disabled="!validSearchTerms()">Search</button>
+					</form>
+				</div>
+			</div>
+			<table ng-show="resultSections.length" class="table table-striped">
+				<thead>
+					<tr>
+						<th>Course</th>
+						<th>Section</th>
+						<th>Add</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="section in resultSections">
+						<td>{{getCourseName(section.course)}}</td>
+						<td>{{section.name}}</td>
+						<td ng-if="!userIsRegisteredForSection(section)"><button class="btn btn-success btn-sm" ng-click="user.sections.push(section)">+</button></td>
+						<td ng-if="userIsRegisteredForSection(section)">Already Added</td>
+					</tr>
+				</tbody>
+			</table>
+		</tab>
+		<tab heading="Remove Sections">
+			<table class="table table-striped">
+				<thead>
+					<tr>
+						<th>Course</th>
+						<th>Section</th>
+						<th>Remove</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="section in user.sections">
+						<td>{{getCourseName(section.course)}}</td>
+						<td>{{section.name}}</td>
+						<td><button class="btn btn-danger btn-sm" ng-click="user.sections.splice($index, 1)">X</button></td>
+					</tr>
+				</tbody>
+			</table>
+		</tab>
+	</tabset>
+	<button class="btn btn-primary" ng-click="submit()" id="submitChangesButton" ng-disabled="!changesAreValid()">Submit Changes</button>
+</div>

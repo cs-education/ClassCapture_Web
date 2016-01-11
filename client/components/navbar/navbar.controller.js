@@ -1,11 +1,8 @@
 'use strict';
 
 angular.module('classCaptureApp')
-  .controller('NavbarCtrl', function ($scope, $location) {
-    $scope.menu = [{
-      'title': 'Home',
-      'link': '/'
-    }];
+  .controller('NavbarCtrl', function ($scope, $location, $rootScope, $q, authService, _) {
+    $scope.isFunction = _.isFunction;
 
     $scope.isCollapsed = true;
 

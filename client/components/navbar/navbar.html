@@ -7,12 +7,12 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a href="/" class="navbar-brand">ClassCapture</a>
+      <a href="/front" class="navbar-brand">ClassCapture</a>
     </div>
     <div collapse="isCollapsed" class="navbar-collapse collapse" id="navbar-main">
       <ul class="nav navbar-nav">
-        <li ng-repeat="item in menu" ng-class="{active: isActive(item.link)}">
-            <a ng-href="{{item.link}}">{{item.title}}</a>
+        <li ng-repeat="item in menu" ng-class="{active: isActive(item.link)}" ng-if="isFunction(item.if) ? item.if() : item.if">
+            <a ng-href="{{isFunction(item.link) ? item.link() : item.link}}">{{isFunction(item.title) ? item.title() : item.title}}</a>
         </li>
       </ul>
     </div>

@@ -1,0 +1,32 @@
+<div ng-controller="LoginCtrl">
+	<br>
+	<alert ng-if="badLogin">Invalid Credentials</alert>
+	<alert ng-repeat="msg in alertMessages">{{msg}}</alert>
+	<tabset>
+		<tab heading="Login">
+			<div class="row">
+				<div class="col-md-6">
+					<form name="forms.login.form" class="css-form" ng-submit="login()" novalidate>
+						<input type="email" name="email" ng-model="forms.login.info.email" placeholder="Email" class="form-control" ng-required="true">
+						<input type="password" name="password" ng-model="forms.login.info.password" placeholder="Password" class="form-control" ng-required="true">
+						<button type="submit" class="btn btn-primary" id="submit" ng-disabled="!validCredentials(forms.login.form, forms.login.info)">Login</button>
+					</form>
+				</div>
+			</div>
+		</tab>
+		<tab heading="Register">
+			<div class="row">
+				<div class="col-md-6">
+					<form name="forms.register.form" class="css-form" ng-submit="register()" novalidate>
+						<input type="text" name="firstName" ng-model="forms.register.info.firstName" placeholder="First Name" class="form-control" ng-required="true">
+						<input type="text" name="lastName" ng-model="forms.register.info.lastName" placeholder="Last Name" class="form-control" ng-required="true">
+						<input type="email" name="email" ng-model="forms.register.info.email" placeholder="Email (NetID@{{EMAIL_DOMAIN_NAME}})" class="form-control" ng-required="true">
+						<input type="password" name="password" ng-model="forms.register.info.password" placeholder="Password (at least 5 characters)" class="form-control" ng-required="true">
+						<input type="password" name="confirmPassword" ng-model="forms.register.info.confirmPassword" placeholder="Confirm Password" class="form-control" ng-required="true">
+						<button type="submit" class="btn btn-primary" id="submit" ng-disabled="!validCredentials(forms.register.form, forms.register.info)">Register</button>
+					</form>
+				</div>
+			</div>
+		</tab>
+	</tabset>
+</div>

@@ -7,9 +7,12 @@ angular.module('classCaptureApp', [
   'ui.router',
   'ui.bootstrap',
   'base64',
-  'classViewApp'
+  'classViewApp',
+  'ui.calendar'
 ])
   .config(function ($urlRouterProvider, $locationProvider) {
+    $urlRouterProvider.when('/front', '/front/login/');
+    $urlRouterProvider.when('/', '/front/login/');
     $urlRouterProvider
       .otherwise('/notFound');
 
