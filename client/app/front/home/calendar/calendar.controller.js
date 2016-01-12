@@ -4,7 +4,7 @@ angular.module('classCaptureApp')
   .constant('EXTRA_INTERVAL_HOURS', 3)
   .constant('CLUSTER_DISTANCE_MINUTES', 30)
   .constant('MIN_EVENT_DURATION_MINUTES', 15)
-  .controller('CalendarCtrl', function ($scope, $state, $q, uiCalendarConfig, authService, Course, Recording, buildIntervalQuery, _, moment, EXTRA_INTERVAL_HOURS, CLUSTER_DISTANCE_MINUTES, MIN_EVENT_DURATION_MINUTES) {
+  .controller('CalendarCtrl', function ($scope, $state, $q, uiCalendarConfig, authService, Course, Recording, buildIntervalQuery, _, moment, resolvedPromise, EXTRA_INTERVAL_HOURS, CLUSTER_DISTANCE_MINUTES, MIN_EVENT_DURATION_MINUTES) {
     $scope.eventSources = {
     	events: []
     };
@@ -91,11 +91,16 @@ angular.module('classCaptureApp')
             $scope.calendarEnd = newEnd.add(EXTRA_INTERVAL_HOURS, 'hours').toDate();
 
             var coursePromises = user.sections.map(section => {
-                section.course = Course.get({
-                    id: section.course.id
-                });
+                if (_.isNumber(section.course)) {
+                    section.course = Course.get({
+                        id: section.course
+                    });
 
-                return section.course.$promise;
+                    return section.course.$promise;
+                } else {
+                    // the course field was already populated from the last call
+                    return resolvedPromise(section.course);
+                }
             });
 
             var recordingsPromises = user.sections.map(section => {
@@ -115,19 +120,19 @@ angular.module('classCaptureApp')
                 var sectionNames = user.sections.map(section => `${section.course.department} ${section.course.number}: ${section.name}`);
                 var sectionRecordings = _.zipObject(sectionNames, recordings);
                 // sectionRecordings is an object like: {'<SectionTitle>': [<Recording for Section>, ...]}
-                var events = _.reduce(sectionRecordings, function (events, recordings, title) {
-                    if (_.isEmpty(recordings)) {
+                var events = _.reduce(sectionRecordings, function (events, eventRecordings, eventTitle) {
+                    if (_.isEmpty(eventRecordings)) {
                         return events;
                     }
 
-                    var clusteredRecordingEvents = clusterRecordings(recordings);
-                    var sectionID = _.first(recordings).section.id;
+                    var clusteredRecordingEvents = clusterRecordings(eventRecordings);
+                    var sectionID = _.first(eventRecordings).section.id;
                     
                     clusteredRecordingEvents.forEach(recordingEvent => {
                         var start = new Date(recordingEvent.start).getTime();
                         var end   = new Date(recordingEvent.end).getTime();
                         
-                        recordingEvent.title = title;
+                        recordingEvent.title = eventTitle;
                         recordingEvent.url = `/front/videoChooser/${sectionID}?start=${start}&end=${end}`;
 
                         if (getEventDuration(recordingEvent, 'minutes') < MIN_EVENT_DURATION_MINUTES) {

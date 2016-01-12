@@ -26,7 +26,7 @@ angular.module('classCaptureApp')
       },
 
       getLoggedInUser: function () {
-        if ($rootScope.user) {
+        if (!_.isUndefined($rootScope.user)) {
           var deferred = $q.defer();
           deferred.resolve($rootScope.user);
           return deferred.promise;
