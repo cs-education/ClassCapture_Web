@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('classCaptureApp')
-  .factory('authService', function (User, $q, $rootScope, _) {
+  .factory('authService', function (User, $q, $rootScope, _, rejectedPromise) {
     return {
       login: function ({email, password}) {
         return User.login({email, password}).$promise
@@ -34,6 +34,7 @@ angular.module('classCaptureApp')
           return User.me().$promise
           .then(user => {
             $rootScope['user'] = user;
+            return user;
           });
         }
       },
@@ -51,10 +52,15 @@ angular.module('classCaptureApp')
       },
 
       updateUserInfo: function (userInfo) {
-        return User.save({id: userInfo.id}, userInfo).$promise
-        .then(user => {
-          $rootScope['user'] = user;
-        });
+        if (!_.has(userInfo, 'id')) {
+          return rejectedPromise(new Error("user param for authService.updateUserInfo(...) must have id property"));
+        } else {
+          return User.update({id: userInfo.id}, userInfo).$promise
+          .then(user => {
+            $rootScope['user'] = user;
+            return user;
+          });
+        }
       }
     };
   });

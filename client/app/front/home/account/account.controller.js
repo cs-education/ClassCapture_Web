@@ -2,7 +2,7 @@
 
 angular.module('classCaptureApp')
   .value('ALERT_LIFESPAN_MS', 10e3)
-  .controller('AccountCtrl', function ($scope, $state, $timeout, authService, Course, Section, _, MIN_PASSWORD_LENGTH, ALERT_LIFESPAN_MS) {
+  .controller('AccountCtrl', function ($scope, $state, $modal, authService, Course, Section, _, MIN_PASSWORD_LENGTH, ALERT_LIFESPAN_MS, USER_FIELD_MAPPINGS) {
   	$scope.user = {};
   	
   	// For login info
@@ -10,8 +10,8 @@ angular.module('classCaptureApp')
       info: {
         firstName: '',
         lastName: '',
-        password: '',
-        confirmPassword: ''
+        newPassword: '',
+        confirmNewPassword: ''
       }
     };
 
@@ -28,12 +28,23 @@ angular.module('classCaptureApp')
     $scope.updateFailed = false;
     $scope.alertMessages = [];
 
+    function isValidPasswordChange() {
+      var password = $scope.login.info.newPassword; 
+      var confirmNewPassword = $scope.login.info.confirmNewPassword;
+
+      if (_.isEmpty(password) && _.isEmpty(confirmNewPassword)) {
+        return true;
+      } else {
+        return password.length >= MIN_PASSWORD_LENGTH && password === confirmNewPassword;
+      }
+    }
+
     $scope.changesAreValid = () => {
       var loginInfo = $scope.login.info;
-      var password = loginInfo.password;
-      var confirmPassword = loginInfo.confirmPassword;
+      var password = loginInfo.newPassword;
+      var confirmNewPassword = loginInfo.confirmNewPassword;
 
-      return _.isEmpty($scope.login.form.$error) && password.length >= MIN_PASSWORD_LENGTH && password === confirmPassword;
+      return _.isEmpty($scope.login.form.$error) && isValidPasswordChange();
     };
 
   	$scope.search = () => {
@@ -83,27 +94,42 @@ angular.module('classCaptureApp')
   	};
 
   	$scope.submit = () => {
-      var userInfo = _.omit($scope.login.info, 'confirmPassword');
-      userInfo.id = $scope.user.id;
-      userInfo.sections = _.pluck($scope.user.sections, 'id');
-      // Remove any attributes that are empty strings/arrays
-      userInfo = _.omit(userInfo, _.isEmpty);
-      authService.updateUserInfo(userInfo)
-      .then(user => {
-        $scope.madeUpdate = true;
-      })
-      .catch(err => {
-        $scope.alertMessages = [];
+      var modalInstance = $modal.open({
+        templateUrl: 'app/front/confirmPasswordModal/confirmPasswordModal.html',
+        controller: 'ConfirmPasswordModalCtrl',
+        size: 'sm'
+      });
 
-        if (err.data.error === 'E_VALIDATION') {
-            // We know its a validation error, provide some feedback to user
-            _.forEach(err.data.invalidAttributes, (reasons, attr) => {
-                var newMessages = _.pluck(reasons, 'message');
-                $scope.alertMessages = $scope.alertMessages.concat(newMessages);
-            });
-        }
+      modalInstance.result
+      .then(password => {
+        // The userInfo will be sent as the update to the backend. Omit unnecessary fields
+        var userInfo = _.omit($scope.login.info, 'confirmNewPassword');
+        
+        // Attatch updated sections list, and password given by modal
+        userInfo.id = $scope.user.id;
+        userInfo.sections = _.pluck($scope.user.sections, 'id');
+        userInfo.password = password; // need to attach password on any User update request
 
-        $scope.updateFailed = true;
+        // Remove any attributes that are empty strings
+        userInfo = _.omit(userInfo, val => _.isString(val) && _.isEmpty(val));
+
+        $scope.alertMessages = []; // reset alert messages
+        // Send update to backend
+        authService.updateUserInfo(userInfo)
+        .then(user => {
+          $scope.madeUpdate = true;
+        })
+        .catch(err => {
+
+          if (_.has(err, 'data.error') && err.data.error === 'E_VALIDATION') {
+              // We know its a validation error, provide some useful feedback to user
+              var invalidAttrs = _.keys(err.data.invalidAttributes).map(attr => USER_FIELD_MAPPINGS[attr]);
+              var invalidAttrsMsg = `The following attributes are invalid: ${invalidAttrs.join(', ')}`;
+              $scope.alertMessages.push(invalidAttrsMsg);
+          }
+
+          $scope.updateFailed = true;
+        });
       });
   	};
   });

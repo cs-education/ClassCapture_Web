@@ -1,16 +1,16 @@
 <div ng-controller="AccountCtrl">
-	<alert class="alert-success" ng-if="madeUpdate">Invalid Credentials</alert>
-	<alert ng-if="updateFailed">Update Failed</alert>
+	<alert type="success" ng-if="madeUpdate && !updateFailed">Update Successful</alert>
+	<alert ng-if="updateFailed && !madeUpdate">Update Failed</alert>
 	<alert ng-repeat="msg in alertMessages">{{msg}}</alert>
 	<tabset>
 		<tab heading="Login Info">
 			<div class="row">
 				<div class="col-md-6">
 					<form name="login.form" class="css-form" novalidate>
-						<input type="text" name="firstName" ng-model="login.info.firstName" placeholder="First Name" class="form-control" ng-required="true">
-						<input type="text" name="lastName" ng-model="login.info.lastName" placeholder="Last Name" class="form-control" ng-required="true">
-						<input type="password" name="password" ng-model="login.info.password" placeholder="Password (at least 5 characters)" class="form-control" ng-required="true">
-						<input type="password" name="confirmPassword" ng-model="login.info.confirmPassword" placeholder="Confirm Password" class="form-control" ng-required="true">
+						<input type="text" name="firstName" ng-model="login.info.firstName" placeholder="Change First Name" class="form-control" ng-required="true">
+						<input type="text" name="lastName" ng-model="login.info.lastName" placeholder="Change Last Name" class="form-control" ng-required="true">
+						<input type="password" name="password" ng-model="login.info.newPassword" placeholder="New Password (at least 5 characters)" class="form-control" ng-required="false">
+						<input type="password" name="confirmPassword" ng-model="login.info.confirmNewPassword" placeholder="Confirm New Password" class="form-control" ng-required="false">
 					</form>
 				</div>
 			</div>

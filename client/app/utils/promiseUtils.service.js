@@ -7,4 +7,11 @@ angular.module('classCaptureApp')
   		deferred.resolve(val);
   		return deferred.promise;
   	};
+  })
+  .factory('rejectedPromise', ($q) => {
+  	return err => {
+		var deferred = $q.defer();
+		deferred.reject(err);
+		return deferred.promise;
+  	};
   });
