@@ -3,7 +3,7 @@
 	<alert ng-if="badLogin">Invalid Credentials</alert>
 	<alert ng-repeat="msg in alertMessages">{{msg}}</alert>
 	<tabset>
-		<tab heading="Login">
+		<tab heading="Login" ng-if="bothTabs || tab === 'login'">
 			<div class="row">
 				<div class="col-md-6">
 					<form name="forms.login.form" class="css-form" ng-submit="login()" novalidate>
@@ -14,9 +14,11 @@
 				</div>
 			</div>
 		</tab>
-		<tab heading="Register">
+		<tab heading="Register" ng-if="bothTabs || tab === 'register'">
 			<div class="row">
 				<div class="col-md-6">
+					<br>
+					<p><strong>NOTE:</strong> <i>DO NOT</i> make your password the same as the password for your actual UIUC Account</p>
 					<form name="forms.register.form" class="css-form" ng-submit="register()" novalidate>
 						<input type="text" name="firstName" ng-model="forms.register.info.firstName" placeholder="First Name" class="form-control" ng-required="true">
 						<input type="text" name="lastName" ng-model="forms.register.info.lastName" placeholder="Last Name" class="form-control" ng-required="true">

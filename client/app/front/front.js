@@ -11,7 +11,7 @@ angular.module('classCaptureApp')
       })
 
       .state('front.login', {
-        url: '/login',
+        url: '/login?tab',
         templateUrl: 'app/front/login/login.html',
         controller: 'LoginCtrl',
         data: {

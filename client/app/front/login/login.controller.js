@@ -12,11 +12,14 @@ angular.module('classCaptureApp')
     'sections': 'Sections',
     'comments': 'Comments'
   })
-  .controller('LoginCtrl', ($scope, _, $state, $rootScope, authService, MIN_PASSWORD_LENGTH, EMAIL_DOMAIN_NAME, USER_FIELD_MAPPINGS) => {
+  .controller('LoginCtrl', ($scope, _, $state, $stateParams, authService, MIN_PASSWORD_LENGTH, EMAIL_DOMAIN_NAME, USER_FIELD_MAPPINGS) => {
     authService.getLoggedInUser()
     .then(user => {
         $state.go('^.home'); // move to logged in users home screen
     });
+
+    $scope.bothTabs = _.isUndefined($stateParams.tab) || ! ['login', 'register'].some(tab => tab === $stateParams.tab);
+    $scope.tab = $stateParams.tab;
 
     $scope.EMAIL_DOMAIN_NAME = EMAIL_DOMAIN_NAME;
     $scope.MIN_PASSWORD_LENGTH = MIN_PASSWORD_LENGTH;
