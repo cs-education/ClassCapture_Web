@@ -3,7 +3,12 @@
 angular.module('classCaptureApp')
   .value('ALERT_LIFESPAN_MS', 10e3)
   .controller('AccountCtrl', function ($scope, $state, $modal, authService, Course, Section, _, MIN_PASSWORD_LENGTH, ALERT_LIFESPAN_MS, USER_FIELD_MAPPINGS) {
-  	$scope.user = {};
+  	// housekeeping code for setting add sections tab as default tab
+    $scope.addSectionsTab = {
+      active: true
+    };
+
+    $scope.user = {};
   	
   	// For login info
     $scope.login = {

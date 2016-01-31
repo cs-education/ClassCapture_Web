@@ -3,7 +3,7 @@ from fabric.api import env, local, run, cd, sudo, open_shell, settings
 
 env.user = ""
 env.password = ""
-env.hosts = ["classcapture1.cs.illinois.edu"]
+env.hosts = ["classcapture.ncsa.illinois.edu"]
 
 git_base_url = "https://github.com/cs-education/"
 git_repo_name = "ClassCapture_Web"
