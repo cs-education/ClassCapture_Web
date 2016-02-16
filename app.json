@@ -2,8 +2,8 @@
 	"apps" : [
 		{
 		    "name"      : "WebApp",
-		    "script"    : "/home/classcapturedeploy/.npm-global/bin/grunt",
-		    "args"        : ["serve:dist", "--force"],
+		    "script"    : "./dist/server/app.js",
+		    "args"        : ["--dist"],
 		    "instances": 1
 	  	}
   	]

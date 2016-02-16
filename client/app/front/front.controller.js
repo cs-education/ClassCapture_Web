@@ -8,7 +8,7 @@ angular.module('classCaptureApp')
     $scope.menu = [
       {
         'title': 'Home',
-        'link': '/front',
+        'link': '/front/login',
         'if': _.negate(authService.isLoggedIn)
       },
     	{
