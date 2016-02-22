@@ -2,6 +2,9 @@
 	"apps" : [
 		{
 		    "name"      : "WebApp",
+		    "env": {
+		    	"NODE_ENV": "production"	
+	    	},
 		    "script"    : "./dist/server/app.js",
 		    "args"        : ["--dist"],
 		    "instances": 1
